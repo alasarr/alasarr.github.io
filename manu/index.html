@@ -57,8 +57,14 @@
   @keyframes entra{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
 
   /* ---------- Cabecera / foto ---------- */
+  .foto-wrap{position:relative;width:156px;margin:0 auto 56px}
+  .escudo-badge{
+    position:absolute;left:50%;bottom:-50px;transform:translateX(-50%);
+    width:62px;height:62px;object-fit:contain;
+    filter:drop-shadow(0 3px 7px rgba(0,0,0,.3));
+  }
   .marco{
-    width:156px;height:156px;margin:0 auto 18px;
+    width:156px;height:156px;margin:0;
     border-radius:50%;padding:7px;
     background:repeating-conic-gradient(var(--verde) 0 22.5deg, var(--blanco) 22.5deg 45deg);
     box-shadow:0 8px 22px rgba(0,77,40,.28);
@@ -83,7 +89,7 @@
   .sub b{color:var(--tinta)}
 
   .escudito{
-    display:inline-flex;align-items:center;gap:7px;
+    margin-top:14px;display:inline-flex;align-items:center;gap:7px;
     background:var(--verde-prof);color:#fff;
     font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
     padding:7px 14px;border-radius:999px;margin-bottom:16px;
@@ -163,12 +169,12 @@
   .ticket{
     position:relative;display:flex;align-items:center;gap:14px;
     background:linear-gradient(100deg,var(--verde-prof),var(--verde));
-    color:#fff;border-radius:15px;padding:15px 17px;overflow:hidden;
+    color:#fff;border-radius:15px;padding:13px 15px;overflow:hidden;
     box-shadow:0 6px 16px rgba(0,77,40,.25);
     animation:entraT .5s cubic-bezier(.2,.9,.3,1.2) both;
   }
   .ticket::after{
-    content:"";position:absolute;right:56px;top:-8px;bottom:-8px;width:2px;
+    content:"";position:absolute;right:64px;top:-8px;bottom:-8px;width:2px;
     background:repeating-linear-gradient(to bottom,rgba(255,255,255,.6) 0 6px,transparent 6px 12px);
   }
   .ticket .n{
@@ -181,10 +187,11 @@
     opacity:.85;white-space:nowrap;margin-bottom:2px;
   }
   .ticket .t2{
-    font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.4px;line-height:1.1;
+    font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.4px;line-height:1.1;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  .ticket .sello{flex:0 0 42px;text-align:center;font-size:23px;line-height:1}
+  .ticket .t3{font-size:10.5px;font-weight:600;opacity:.8;margin-top:3px;white-space:nowrap}
+  .ticket .sello{flex:0 0 40px;width:40px;height:auto;display:block;margin-left:6px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.3))}
   @keyframes entraT{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
 
   .firma{
@@ -248,7 +255,10 @@
 
 <!-- ============ 1. PORTADA ============ -->
 <main class="escena" id="portada">
-  <div class="marco"><img src="img/manu.jpg" alt="Manu"></div>
+  <div class="foto-wrap">
+    <div class="marco"><img src="img/manu.jpg" alt="Manu"></div>
+    <img class="escudo-badge" src="img/escudo.png" alt="Escudo del Real Betis">
+  </div>
   <div class="escudito"><span></span> Real Betis Balompié <span></span></div>
   <h1>¡Felicidades<em>Manu!</em></h1>
   <p class="sub"><b>11 años</b> ya. Aquí hay un regalo escondido… pero esto es el Betis, y al Betis no se entra de gratis.<br><br>Acierta <b>3 preguntas</b> y es tuyo.</p>
@@ -269,28 +279,40 @@
   <div class="trofeo">🏆</div>
   <div class="escudito"><span></span> Reto superado <span></span></div>
   <h1>Tu regalo<em>es este</em></h1>
-  <p class="sub">Te vienes conmigo a ver al Betis en Europa. No uno. <b>Los tres próximos partidos de Champions.</b></p>
+  <p class="sub">Te vienes conmigo a ver al Betis en Europa. No uno: <b>los tres próximos partidos de Champions en casa.</b></p>
 
   <div class="entradas" id="entradas">
     <div class="ticket" style="animation-delay:.05s">
       <div class="n">1</div>
-      <div class="txt"><div class="t1">UEFA Champions League</div><div class="t2">Benito Villamarín</div></div>
-      <div class="sello">⚽</div>
+      <div class="txt">
+        <div class="t1">Miércoles 14 oct 2026 · 21:00</div>
+        <div class="t2">Betis – Porto</div>
+        <div class="t3">Estadio de La Cartuja · Champions</div>
+      </div>
+      <img class="sello" src="img/escudo.png" alt="">
     </div>
     <div class="ticket" style="animation-delay:.2s">
       <div class="n">2</div>
-      <div class="txt"><div class="t1">UEFA Champions League</div><div class="t2">Benito Villamarín</div></div>
-      <div class="sello">⚽</div>
+      <div class="txt">
+        <div class="t1">Miércoles 21 oct 2026 · 21:00</div>
+        <div class="t2">Betis – Feyenoord</div>
+        <div class="t3">Estadio de La Cartuja · Champions</div>
+      </div>
+      <img class="sello" src="img/escudo.png" alt="">
     </div>
     <div class="ticket" style="animation-delay:.35s">
       <div class="n">3</div>
-      <div class="txt"><div class="t1">UEFA Champions League</div><div class="t2">Benito Villamarín</div></div>
-      <div class="sello">⚽</div>
+      <div class="txt">
+        <div class="t1">Miércoles 9 dic 2026 · 18:45</div>
+        <div class="t2">Betis – Como</div>
+        <div class="t3">Estadio de La Cartuja · Champions</div>
+      </div>
+      <img class="sello" src="img/escudo.png" alt="">
     </div>
   </div>
 
 
-  <div class="galeria-tit">Nuestras noches en el Villamarín</div>
+  <div class="galeria-tit">Nuestras noches de Betis</div>
   <p class="pista-scroll">Desliza para verlas 👉</p>
   <div class="galeria" id="galeria">
       <figure class="card">
@@ -324,7 +346,7 @@
   </div>
 
   <div class="firma">
-    Tres noches de Champions, tú y yo, en el Villamarín.<br>
+    Tres noches de Champions, tú y yo, en La Cartuja<br>(mientras reforman nuestro Villamarín).<br>
     Con todo el cariño, de tu tío <b>Alberto</b>.
     <div class="lema">¡Viva er Betis manque pierda!</div>
   </div>
@@ -334,17 +356,17 @@
 const PREGUNTAS = [
   {
     q: "¿Cómo se llama el estadio del Betis?",
-    ops: ["Estadio Benito Villamarín", "Ramón Sánchez-Pizjuán", "Estadio de La Cartuja", "Nuevo Mirandilla"],
+    ops: ["Estadio Benito Villamarín", "Ramón Sánchez-Pizjuán", "Nuevo Mirandilla", "La Rosaleda"],
     ok: 0,
     bien: "¡Claro que sí! El templo verdiblanco. 💚",
-    pista: "Ese es del vecino… piensa en tu casa."
+    pista: "Ese es de otro equipo… piensa en tu casa."
   },
   {
-    q: "¿En qué año se fundó el Real Betis Balompié?",
-    ops: ["1898", "1907", "1929", "1945"],
+    q: "¿Qué dorsal lleva Antony en el Betis?",
+    ops: ["El 10", "El 7", "El 11", "El 21"],
     ok: 1,
-    bien: "¡Exacto! 1907, más de un siglo de Betis.",
-    pista: "Principios del siglo XX. ¡Un poquito antes!"
+    bien: "¡El 7! El brasileño del regate y la zurda mágica. 🇧🇷",
+    pista: "Es un número de extremo de los de toda la vida…"
   },
   {
     q: "¿Qué leyenda del Betis levantó la Copa del Rey de 2022?",
@@ -461,5 +483,7 @@ $("empezar").onclick = () => {
   pintarPregunta();
 };
 </script>
+<!-- Escudo del Real Betis: Wikimedia Commons, CC BY-SA 4.0
+     https://commons.wikimedia.org/wiki/File:Escudo_real_betis.png -->
 </body>
 </html>
