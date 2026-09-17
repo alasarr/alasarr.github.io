@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>El regalo de Manu</title>
+<meta name="theme-color" content="#00954E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde:#00954E;
+    --verde-osc:#00713B;
+    --verde-prof:#004D28;
+    --oro:#FFC83D;
+    --blanco:#ffffff;
+    --tinta:#0B2B1B;
+    --gris:#6B7F73;
+    --rojo:#D64545;
+    --radio:18px;
+    --sombra:0 10px 30px rgba(0,77,40,.18);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--tinta);
+    background:
+      repeating-linear-gradient(115deg,
+        var(--verde) 0 46px,
+        var(--verde-osc) 46px 92px);
+    min-height:100dvh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px 16px calc(20px + env(safe-area-inset-bottom));
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,.22), transparent 62%);
+  }
+
+  .escena{
+    position:relative;z-index:1;
+    width:100%;max-width:520px;
+    background:var(--blanco);
+    border-radius:26px;
+    box-shadow:var(--sombra), 0 0 0 6px rgba(255,255,255,.22);
+    padding:30px 24px 28px;
+    text-align:center;
+    animation:entra .45s cubic-bezier(.2,.9,.3,1.2) both;
+  }
+  .escena[hidden]{display:none}
+  @keyframes entra{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+
+  /* ---------- Cabecera / foto ---------- */
+  .marco{
+    width:156px;height:156px;margin:0 auto 18px;
+    border-radius:50%;padding:7px;
+    background:repeating-conic-gradient(var(--verde) 0 22.5deg, var(--blanco) 22.5deg 45deg);
+    box-shadow:0 8px 22px rgba(0,77,40,.28);
+    animation:gira 18s linear infinite;
+  }
+  @keyframes gira{to{transform:rotate(360deg)}}
+  .marco img{
+    width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;
+    border:5px solid var(--blanco);
+    animation:gira 18s linear infinite reverse;
+  }
+  @media (prefers-reduced-motion:reduce){.marco,.marco img{animation:none}}
+
+  h1{
+    font-family:'Anton',Impact,sans-serif;font-weight:400;
+    font-size:clamp(30px,8.5vw,44px);line-height:1.02;
+    margin:0 0 6px;letter-spacing:.5px;
+    color:var(--verde-prof);text-transform:uppercase;
+  }
+  h1 em{font-style:normal;color:var(--verde);display:block}
+  .sub{color:var(--gris);font-size:16px;line-height:1.5;margin:0 auto 22px;max-width:36ch}
+  .sub b{color:var(--tinta)}
+
+  .escudito{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--verde-prof);color:#fff;
+    font-size:12px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;
+    padding:7px 14px;border-radius:999px;margin-bottom:16px;
+  }
+  .escudito span{width:8px;height:8px;border-radius:50%;background:var(--oro)}
+
+  /* ---------- Botones ---------- */
+  .btn{
+    font-family:'Outfit',sans-serif;
+    display:block;width:100%;border:0;cursor:pointer;
+    background:var(--verde);color:#fff;
+    font-size:18px;font-weight:800;letter-spacing:.3px;
+    padding:16px 20px;border-radius:var(--radio);
+    box-shadow:0 5px 0 var(--verde-prof);
+    transition:transform .12s ease, box-shadow .12s ease, background .15s ease;
+  }
+  .btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--verde-prof)}
+  .btn.oro{background:var(--oro);color:#4A3200;box-shadow:0 5px 0 #C99400}
+  .btn.oro:active{box-shadow:0 1px 0 #C99400}
+
+  /* ---------- Quiz ---------- */
+  .marcador{
+    display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;
+  }
+  .punto{
+    width:34px;height:7px;border-radius:99px;background:#DCE7E0;transition:background .3s ease;
+  }
+  .punto.activo{background:var(--oro)}
+  .punto.hecho{background:var(--verde)}
+
+  .num{
+    font-size:12px;font-weight:800;letter-spacing:2px;color:var(--gris);
+    text-transform:uppercase;margin-bottom:10px;
+  }
+  .pregunta{
+    font-family:'Anton',Impact,sans-serif;font-weight:400;
+    font-size:clamp(22px,6.2vw,29px);line-height:1.2;
+    color:var(--verde-prof);margin:0 0 22px;
+  }
+  .opciones{display:grid;gap:11px;margin-bottom:6px}
+  .op{
+    font-family:'Outfit',sans-serif;
+    display:flex;align-items:center;gap:13px;text-align:left;width:100%;
+    background:#F2F7F4;border:2.5px solid #E1EBE5;color:var(--tinta);
+    font-size:17px;font-weight:600;padding:15px 16px;border-radius:15px;cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .op:hover:not(:disabled){border-color:var(--verde);background:#EAF4EE}
+  .op:disabled{cursor:default}
+  .op .letra{
+    flex:0 0 30px;height:30px;border-radius:9px;
+    background:var(--blanco);border:2px solid #D7E4DC;
+    display:grid;place-items:center;font-weight:800;font-size:14px;color:var(--gris);
+    transition:all .15s ease;
+  }
+  .op.bien{background:#E4F6EA;border-color:var(--verde)}
+  .op.bien .letra{background:var(--verde);border-color:var(--verde);color:#fff}
+  .op.mal{background:#FDECEC;border-color:var(--rojo);animation:tiembla .4s}
+  .op.mal .letra{background:var(--rojo);border-color:var(--rojo);color:#fff}
+  @keyframes tiembla{
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-8px)}40%{transform:translateX(8px)}
+    60%{transform:translateX(-5px)}80%{transform:translateX(5px)}
+  }
+
+  .aviso{
+    min-height:44px;display:flex;align-items:center;justify-content:center;
+    font-size:15px;font-weight:600;padding:8px 4px 0;line-height:1.35;
+  }
+  .aviso.ok{color:var(--verde)}
+  .aviso.ko{color:var(--rojo)}
+
+  /* ---------- Regalo ---------- */
+  .trofeo{font-size:56px;line-height:1;margin-bottom:6px;animation:bota 1.6s ease-in-out infinite}
+  @keyframes bota{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .entradas{display:grid;gap:12px;margin:22px 0 20px;text-align:left}
+  .ticket{
+    position:relative;display:flex;align-items:center;gap:14px;
+    background:linear-gradient(100deg,var(--verde-prof),var(--verde));
+    color:#fff;border-radius:15px;padding:15px 17px;overflow:hidden;
+    box-shadow:0 6px 16px rgba(0,77,40,.25);
+    animation:entraT .5s cubic-bezier(.2,.9,.3,1.2) both;
+  }
+  .ticket::after{
+    content:"";position:absolute;right:56px;top:-8px;bottom:-8px;width:2px;
+    background:repeating-linear-gradient(to bottom,rgba(255,255,255,.6) 0 6px,transparent 6px 12px);
+  }
+  .ticket .n{
+    flex:0 0 42px;height:42px;border-radius:12px;background:var(--oro);color:#4A3200;
+    display:grid;place-items:center;font-family:'Anton',sans-serif;font-size:22px;
+  }
+  .ticket .txt{flex:1;min-width:0}
+  .ticket .t1{
+    font-size:10px;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;
+    opacity:.85;white-space:nowrap;margin-bottom:2px;
+  }
+  .ticket .t2{
+    font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.4px;line-height:1.1;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .ticket .sello{flex:0 0 42px;text-align:center;font-size:23px;line-height:1}
+  @keyframes entraT{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+
+  .firma{
+    border-top:2px dashed #DCE7E0;padding-top:18px;margin-top:4px;
+    font-size:15px;color:var(--gris);line-height:1.55;
+  }
+  .firma b{color:var(--verde-prof)}
+  .lema{
+    font-family:'Anton',sans-serif;font-size:19px;color:var(--verde);
+    letter-spacing:.4px;margin-top:12px;text-transform:uppercase;
+  }
+
+  /* ---------- Galería ---------- */
+  .galeria-tit{
+    font-size:12px;font-weight:800;letter-spacing:2px;color:var(--gris);
+    text-transform:uppercase;margin:22px 0 12px;
+  }
+  .galeria{
+    display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    margin:0 -24px;padding:2px 24px 14px;
+  }
+  .galeria::-webkit-scrollbar{height:0}
+  .card{
+    flex:0 0 auto;scroll-snap-align:center;margin:0;position:relative;
+    border-radius:16px;overflow:hidden;background:#0A2214;
+    box-shadow:0 6px 16px rgba(0,77,40,.25);
+  }
+  .card img,.card video{display:block;height:300px;width:auto;max-width:none;background:#0A2214}
+  .card figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;
+    color:#fff;font-size:12.5px;font-weight:700;text-align:left;letter-spacing:.2px;
+    background:linear-gradient(transparent,rgba(0,0,0,.78));pointer-events:none;
+  }
+  .play{
+    position:absolute;inset:0;margin:auto;width:56px;height:56px;padding:0;
+    border-radius:50%;border:0;cursor:pointer;
+    background:rgba(255,255,255,.94);color:var(--verde-prof);
+    font-size:19px;line-height:1;display:grid;place-items:center;
+    box-shadow:0 5px 16px rgba(0,0,0,.35);
+    transition:transform .15s ease;
+  }
+  .play:active{transform:scale(.9)}
+  .card.sonando .play,.card.sonando figcaption{display:none}
+  .pista-scroll{font-size:12.5px;color:var(--gris);margin:-4px 0 4px}
+
+  /* ---------- Confeti ---------- */
+  #confeti{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+  .papelito{
+    position:absolute;top:-24px;width:10px;height:16px;border-radius:2px;
+    animation:cae linear forwards;
+  }
+  @keyframes cae{
+    to{transform:translateY(105vh) rotate(760deg);opacity:.15}
+  }
+</style>
+</head>
+<body>
+
+<div id="confeti" aria-hidden="true"></div>
+
+<!-- ============ 1. PORTADA ============ -->
+<main class="escena" id="portada">
+  <div class="marco"><img src="img/manu.jpg" alt="Manu"></div>
+  <div class="escudito"><span></span> Real Betis Balompié <span></span></div>
+  <h1>¡Felicidades<em>Manu!</em></h1>
+  <p class="sub"><b>11 años</b> ya. Aquí hay un regalo escondido… pero esto es el Betis, y al Betis no se entra de gratis.<br><br>Acierta <b>3 preguntas</b> y es tuyo.</p>
+  <button class="btn" id="empezar">Empezar el reto ⚽️</button>
+</main>
+
+<!-- ============ 2. QUIZ ============ -->
+<main class="escena" id="quiz" hidden>
+  <div class="marcador" id="marcador"></div>
+  <div class="num" id="num">Pregunta 1 de 3</div>
+  <h2 class="pregunta" id="pregunta"></h2>
+  <div class="opciones" id="opciones"></div>
+  <div class="aviso" id="aviso"></div>
+</main>
+
+<!-- ============ 3. REGALO ============ -->
+<main class="escena" id="regalo" hidden>
+  <div class="trofeo">🏆</div>
+  <div class="escudito"><span></span> Reto superado <span></span></div>
+  <h1>Tu regalo<em>es este</em></h1>
+  <p class="sub">Te vienes conmigo a ver al Betis en Europa. No uno. <b>Los tres próximos partidos de Champions.</b></p>
+
+  <div class="entradas" id="entradas">
+    <div class="ticket" style="animation-delay:.05s">
+      <div class="n">1</div>
+      <div class="txt"><div class="t1">UEFA Champions League</div><div class="t2">Benito Villamarín</div></div>
+      <div class="sello">⚽</div>
+    </div>
+    <div class="ticket" style="animation-delay:.2s">
+      <div class="n">2</div>
+      <div class="txt"><div class="t1">UEFA Champions League</div><div class="t2">Benito Villamarín</div></div>
+      <div class="sello">⚽</div>
+    </div>
+    <div class="ticket" style="animation-delay:.35s">
+      <div class="n">3</div>
+      <div class="txt"><div class="t1">UEFA Champions League</div><div class="t2">Benito Villamarín</div></div>
+      <div class="sello">⚽</div>
+    </div>
+  </div>
+
+
+  <div class="galeria-tit">Nuestras noches en el Villamarín</div>
+  <p class="pista-scroll">Desliza para verlas 👉</p>
+  <div class="galeria" id="galeria">
+      <figure class="card">
+        <img src="media/villamarin-1.jpg" alt="Tú, yo y el Villamarín" loading="lazy">
+        <figcaption>Tú, yo y el Villamarín</figcaption>
+      </figure>
+      <figure class="card">
+        <video src="media/gol.mp4" poster="media/gol.jpg" preload="none" playsinline></video>
+        <button class="play" type="button" aria-label="Reproducir: ¡Esoooo!">▶</button>
+        <figcaption>¡Esoooo!</figcaption>
+      </figure>
+      <figure class="card">
+        <img src="media/villamarin-2.jpg" alt="Antes del pitido inicial" loading="lazy">
+        <figcaption>Antes del pitido inicial</figcaption>
+      </figure>
+      <figure class="card">
+        <video src="media/grada.mp4" poster="media/grada.jpg" preload="none" playsinline></video>
+        <button class="play" type="button" aria-label="Reproducir: En pie en la grada">▶</button>
+        <figcaption>En pie en la grada</figcaption>
+      </figure>
+      <figure class="card">
+        <video src="media/himno.mp4" poster="media/himno.jpg" preload="none" playsinline></video>
+        <button class="play" type="button" aria-label="Reproducir: Noche de fútbol">▶</button>
+        <figcaption>Noche de fútbol</figcaption>
+      </figure>
+      <figure class="card">
+        <video src="media/ambiente.mp4" poster="media/ambiente.jpg" preload="none" playsinline></video>
+        <button class="play" type="button" aria-label="Reproducir: Ambientazo en el fondo">▶</button>
+        <figcaption>Ambientazo en el fondo</figcaption>
+      </figure>
+  </div>
+
+  <div class="firma">
+    Tres noches de Champions, tú y yo, en el Villamarín.<br>
+    Con todo el cariño, de tu tío <b>Alberto</b>.
+    <div class="lema">¡Viva er Betis manque pierda!</div>
+  </div>
+</main>
+
+<script>
+const PREGUNTAS = [
+  {
+    q: "¿Cómo se llama el estadio del Betis?",
+    ops: ["Estadio Benito Villamarín", "Ramón Sánchez-Pizjuán", "Estadio de La Cartuja", "Nuevo Mirandilla"],
+    ok: 0,
+    bien: "¡Claro que sí! El templo verdiblanco. 💚",
+    pista: "Ese es del vecino… piensa en tu casa."
+  },
+  {
+    q: "¿En qué año se fundó el Real Betis Balompié?",
+    ops: ["1898", "1907", "1929", "1945"],
+    ok: 1,
+    bien: "¡Exacto! 1907, más de un siglo de Betis.",
+    pista: "Principios del siglo XX. ¡Un poquito antes!"
+  },
+  {
+    q: "¿Qué leyenda del Betis levantó la Copa del Rey de 2022?",
+    ops: ["Sergio Canales", "Borja Iglesias", "Joaquín Sánchez", "Andrés Guardado"],
+    ok: 2,
+    bien: "¡El capitán! Joaquín y esa Copa de La Cartuja. 🏆",
+    pista: "El capitán de El Puerto, el eterno del Betis."
+  }
+];
+
+const $ = id => document.getElementById(id);
+const LETRAS = ["A", "B", "C", "D"];
+let actual = 0;
+
+/* --- marcador de puntitos --- */
+function pintarMarcador() {
+  $("marcador").innerHTML = PREGUNTAS.map((_, i) =>
+    `<div class="punto ${i < actual ? "hecho" : i === actual ? "activo" : ""}"></div>`
+  ).join("");
+}
+
+function pintarPregunta() {
+  const p = PREGUNTAS[actual];
+  pintarMarcador();
+  $("num").textContent = `Pregunta ${actual + 1} de ${PREGUNTAS.length}`;
+  $("pregunta").textContent = p.q;
+  $("aviso").textContent = "";
+  $("aviso").className = "aviso";
+  $("opciones").innerHTML = "";
+
+  p.ops.forEach((texto, i) => {
+    const b = document.createElement("button");
+    b.className = "op";
+    b.innerHTML = `<span class="letra">${LETRAS[i]}</span><span>${texto}</span>`;
+    b.onclick = () => responder(b, i);
+    $("opciones").appendChild(b);
+  });
+}
+
+function responder(boton, i) {
+  const p = PREGUNTAS[actual];
+  const botones = [...document.querySelectorAll(".op")];
+
+  if (i === p.ok) {
+    botones.forEach(b => b.disabled = true);
+    boton.classList.add("bien");
+    $("aviso").textContent = p.bien;
+    $("aviso").className = "aviso ok";
+    setTimeout(() => {
+      actual++;
+      if (actual < PREGUNTAS.length) {
+        pintarPregunta();
+      } else {
+        mostrarRegalo();
+      }
+    }, 1300);
+  } else {
+    boton.classList.add("mal");
+    boton.disabled = true;
+    $("aviso").textContent = "¡Casi! " + p.pista;
+    $("aviso").className = "aviso ko";
+    setTimeout(() => boton.classList.remove("mal"), 450);
+  }
+}
+
+function mostrarRegalo() {
+  $("quiz").hidden = true;
+  $("regalo").hidden = false;
+  lanzarConfeti();
+  setTimeout(lanzarConfeti, 900);
+}
+
+function lanzarConfeti() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const colores = ["#00954E", "#ffffff", "#FFC83D", "#00713B", "#BFE8CF"];
+  const capa = $("confeti");
+  for (let i = 0; i < 70; i++) {
+    const p = document.createElement("div");
+    p.className = "papelito";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.background = colores[Math.floor(Math.random() * colores.length)];
+    p.style.animationDuration = (2.4 + Math.random() * 2) + "s";
+    p.style.animationDelay = (Math.random() * 0.7) + "s";
+    p.style.transform = `rotate(${Math.random() * 360}deg)`;
+    if (Math.random() > 0.6) p.style.borderRadius = "50%";
+    capa.appendChild(p);
+    setTimeout(() => p.remove(), 5200);
+  }
+}
+
+/* --- galería: un vídeo a la vez --- */
+document.querySelectorAll("#galeria .play").forEach(btn => {
+  btn.onclick = () => {
+    const card = btn.closest(".card");
+    const v = card.querySelector("video");
+    document.querySelectorAll("#galeria video").forEach(o => {
+      if (o !== v) { o.pause(); o.controls = false; o.closest(".card").classList.remove("sonando"); }
+    });
+    card.classList.add("sonando");
+    v.controls = true;
+    v.play();
+  };
+});
+document.querySelectorAll("#galeria video").forEach(v => {
+  v.addEventListener("ended", () => {
+    v.controls = false;
+    v.closest(".card").classList.remove("sonando");
+  });
+});
+
+$("empezar").onclick = () => {
+  $("portada").hidden = true;
+  $("quiz").hidden = false;
+  pintarPregunta();
+};
+</script>
+</body>
+</html>
