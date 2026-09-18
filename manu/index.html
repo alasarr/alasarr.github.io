@@ -174,7 +174,7 @@
     animation:entraT .5s cubic-bezier(.2,.9,.3,1.2) both;
   }
   .ticket::after{
-    content:"";position:absolute;right:64px;top:-8px;bottom:-8px;width:2px;
+    content:"";position:absolute;right:70px;top:-8px;bottom:-8px;width:2px;
     background:repeating-linear-gradient(to bottom,rgba(255,255,255,.6) 0 6px,transparent 6px 12px);
   }
   .ticket .n{
@@ -191,7 +191,12 @@
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
   .ticket .t3{font-size:10.5px;font-weight:600;opacity:.8;margin-top:3px;white-space:nowrap}
-  .ticket .sello{flex:0 0 40px;width:40px;height:auto;display:block;margin-left:6px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.3))}
+  .ticket .sello{
+    flex:0 0 44px;width:44px;height:44px;margin-left:8px;border-radius:50%;
+    background:#fff;display:grid;place-items:center;
+    box-shadow:0 2px 6px rgba(0,0,0,.28);
+  }
+  .ticket .sello img{width:32px;height:32px;object-fit:contain;display:block}
   @keyframes entraT{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
 
   .firma{
@@ -279,7 +284,7 @@
   <div class="trofeo">🏆</div>
   <div class="escudito"><span></span> Reto superado <span></span></div>
   <h1>Tu regalo<em>es este</em></h1>
-  <p class="sub">Te vienes conmigo a ver al Betis en Europa. No uno: <b>los tres próximos partidos de Champions en casa.</b></p>
+  <p class="sub">Tú y yo en la grada de <b>La Cartuja</b>, viendo al Betis en Champions. Y no a un partido: <b>a los tres próximos que juega en casa.</b></p>
 
   <div class="entradas" id="entradas">
     <div class="ticket" style="animation-delay:.05s">
@@ -289,7 +294,7 @@
         <div class="t2">Betis – Porto</div>
         <div class="t3">Estadio de La Cartuja · Champions</div>
       </div>
-      <img class="sello" src="img/escudo.png" alt="">
+      <div class="sello"><img src="img/porto.svg" alt="Escudo del Oporto"></div>
     </div>
     <div class="ticket" style="animation-delay:.2s">
       <div class="n">2</div>
@@ -298,7 +303,7 @@
         <div class="t2">Betis – Feyenoord</div>
         <div class="t3">Estadio de La Cartuja · Champions</div>
       </div>
-      <img class="sello" src="img/escudo.png" alt="">
+      <div class="sello"><img src="img/feyenoord.svg" alt="Escudo del Feyenoord"></div>
     </div>
     <div class="ticket" style="animation-delay:.35s">
       <div class="n">3</div>
@@ -307,7 +312,7 @@
         <div class="t2">Betis – Como</div>
         <div class="t3">Estadio de La Cartuja · Champions</div>
       </div>
-      <img class="sello" src="img/escudo.png" alt="">
+      <div class="sello"><img src="img/como.svg" alt="Escudo del Como"></div>
     </div>
   </div>
 
